@@ -1,0 +1,181 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+<style>
+    
+    .StartBtn{
+    align-self:center;
+    max-width:90%;
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+    font-size: 3em;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    background-color:lightgreen;    
+    }
+    
+    .StopBtn{
+    align-self:center;
+    max-width:90%;
+    width: 90%;
+    max-height: 100%;
+    height: 100%;
+    font-size: 3em;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    background-color:lightcoral;      
+    }
+    
+    .Shelf1Btn{
+    max-width:90%;
+    width: 90%;
+    max-height: 100%;
+    height: 100%;
+    font-size: 3em;
+    margin: 2.5%;
+    background-color:lightskyblue; 
+    }
+    
+    .Shelf2Btn{
+    max-width:90%;
+    width: 90%;
+    max-height: 100%;
+    height: 100%;
+    font-size: 3em;
+    margin: 2.5%;
+    background-color:skyblue; 
+    }
+    
+    .Shelf3Btn{
+    max-width:90%;
+    width: 90%;
+    max-height: 100%;
+    height: 100%;
+    font-size: 3em;
+    margin: 2.5%;
+    background-color:deepskyblue;
+    }        
+    
+    .Spacer{
+    display: block;
+    height: 5%;
+    }
+    
+    .Buttons{
+    max-height: 15%;
+    height: 15%;
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+       
+    
+    
+</style>
+<script type="text/javascript" src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+       <script>
+       var ros = new ROSLIB.Ros({
+           url : 'ws://0.0.0.0:5050',
+         });
+       
+       ros.on('connection', function() {
+           console.log('Connected to websocket server.');
+           
+       });
+       ros.on('error', function(error) {
+              console.log('Error connecting to websocket server: ', error);
+          });
+          
+        ros.on('close', function() {
+              console.log('Connection to websocket server closed.');
+          });
+       
+        function AcceptPackage(){
+            var cmdNav = new ROSLIB.Topic({
+                           ros : ros,
+                           name : '/EvePkg',
+                           messageType : 'std_msgs/String'
+                       })
+                       var text = new ROSLIB.Message({
+                           data: "Accept"
+                       })   
+                       cmdNav.publish(text)
+        }
+        function StopAcceptingPackage(){
+            var cmdNav = new ROSLIB.Topic({
+                           ros : ros,
+                           name : '/EvePkg',
+                           messageType : 'std_msgs/String'
+                       })
+                       var text = new ROSLIB.Message({
+                           data: "Stop"
+                       })   
+                       cmdNav.publish(text)
+        }       
+        function PackageToShelf1(){
+            var cmdNav = new ROSLIB.Topic({
+                           ros : ros,
+                           name : '/EvePkg',
+                           messageType : 'std_msgs/String'
+                       })
+                       var text = new ROSLIB.Message({
+                           data: "Shelf1"
+                       })   
+                       cmdNav.publish(text)
+        } 
+function PackageToShelf2(){
+            var cmdNav = new ROSLIB.Topic({
+                           ros : ros,
+                           name : '/EvePkg',
+                           messageType : 'std_msgs/String'
+                       })
+                       var text = new ROSLIB.Message({
+                           data: "Shelf2"
+                       })   
+                       cmdNav.publish(text)
+        }     
+function PackageToShelf3(){
+            var cmdNav = new ROSLIB.Topic({
+                           ros : ros,
+                           name : '/EvePkg',
+                           messageType : 'std_msgs/String'
+                       })
+                       var text = new ROSLIB.Message({
+                           data: "Shelf3"
+                       })   
+                       cmdNav.publish(text)
+        }         
+       </script>
+
+    <div class="Buttons">
+        <button class = "StartBtn" onclick="AcceptPackage()">Start</button>
+    </div>
+
+    <div class="Buttons">
+        <button class = "StopBtn" onclick="StopAcceptingPackage()">Stopp</button>
+    </div>
+
+
+@*<div class="Spacer"></div>*@
+
+
+    
+    <div class="Buttons">
+        <button class="Shelf1Btn" onclick="PackageToShelf1()">Hylle 1</button>
+    </div>
+
+    <div class="Buttons">
+        <button class="Shelf2Btn" onclick="PackageToShelf2()">Hylle 2</button>
+    </div>
+
+    <div class="Buttons">
+        <button class="Shelf3Btn" onclick="PackageToShelf3()">Hylle 3</button>
+    </div>
+
